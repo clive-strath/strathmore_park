@@ -21,6 +21,9 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
+        'car_number_plate',
+        'security_badge_number',
     ];
 
     /**
@@ -44,5 +47,25 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function isAdmin(): bool
+    {
+        return $this->role === 'admin';
+    }
+
+    public function isSecurity(): bool
+    {
+        return $this->role === 'security';
+    }
+
+    public function isStudent(): bool
+    {
+        return $this->role === 'student';
+    }
+
+    public function parkingActivities()
+    {
+        return $this->hasMany(ParkingActivity::class);
     }
 }
